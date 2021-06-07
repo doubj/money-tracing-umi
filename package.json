@@ -22,6 +22,8 @@
   "dependencies": {
     "@ant-design/pro-layout": "^6.5.0",
     "@umijs/preset-react": "1.x",
+    "antd": "^4.16.1",
+    "dayjs": "^1.10.5",
     "umi": "^3.4.25"
   },
   "devDependencies": {

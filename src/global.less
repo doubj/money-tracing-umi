@@ -1,0 +1,25 @@
+@import '~antd/dist/antd.css';
+@import './assets/css/index.less';
+
+.text-colorful {
+  background: rgba(255, 253, 160, 1);
+  background: -webkit-linear-gradient(
+      left,
+      #00ffff 0%,
+      #97fba0 25%,
+      #97b1fb 50%,
+      #00ffff 100%
+    )
+    repeat;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: slide 100s infinite linear;
+}
+@keyframes slide {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -8000px -3000px;
+  }
+}
