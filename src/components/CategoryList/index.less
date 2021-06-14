@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  .item {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 0;
+    margin-top: 5px;
+    align-items: center;
+    border-radius: 10px;
+    width: 20%;
+    &:hover {
+      background-color: #efefef;
+      cursor: pointer;
+    }
+    &.itemSelected {
+      background-color: #efefef;
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Menu, Divider, ConfigProvider, Avatar, Button } from 'antd';
+import { Menu, Divider, ConfigProvider, Avatar, Button, Layout } from 'antd';
 import {
   DashboardOutlined,
   DollarCircleOutlined,
@@ -13,6 +13,8 @@ import avatarImg from '../assets/avatar.png';
 import { history } from 'umi';
 import useAsync from '@/utils/use-async';
 import { getTotal } from '@/services/transactions';
+
+const { Header, Content, Footer } = Layout;
 
 const Profile: React.FC = () => {
   const nickName = 'doubj:)';
@@ -68,6 +70,9 @@ const BaseLayout: React.FC = (props: any) => {
     history.push(`/${selected.key}`);
   };
 
+  const curRoute =
+    RouteMap[(location && location.pathname.substr(1)) || 'dashboard'];
+
   return (
     <>
       <ConfigProvider locale={zhCN}>
@@ -94,7 +99,25 @@ const BaseLayout: React.FC = (props: any) => {
             </Menu>
             <Divider />
           </aside>
-          <section className={styles.layoutContent}>{children}</section>
+          <Layout style={{ marginLeft: 200 }}>
+            <Header
+              style={{ padding: 0, height: 40, background: 'transparent' }}
+            >
+              <span className={styles.headerTitle}>{curRoute.name}</span>
+            </Header>
+            <Content
+              style={{
+                margin: '24px 16px 0',
+                overflow: 'initial',
+                minHeight: 'calc(100vh - 40px)',
+              }}
+            >
+              {children}
+            </Content>
+            <Footer style={{ textAlign: 'center' }}>
+              Money Tracing ©2021 Created by doubj
+            </Footer>
+          </Layout>
         </section>
       </ConfigProvider>
     </>

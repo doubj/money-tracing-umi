@@ -15,6 +15,40 @@
   -webkit-text-fill-color: transparent;
   animation: slide 100s infinite linear;
 }
+.expense {
+  color: #ff5e65;
+  font-weight: bold;
+}
+
+.income {
+  color: #04cd93;
+  font-weight: bold;
+}
+
+/* 表格操作栏 */
+.action-wrap .anticon {
+  transition: all 0.2s;
+  margin-left: 10px;
+  font-size: 20px;
+}
+
+.action-wrap .anticon:hover {
+  transform: scale(1.5);
+}
+
+.list-container {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  /* 修改table tr:hover的样式 */
+  .ant-table-tbody > tr.ant-table-row:hover > td {
+    background: #e6f7ff;
+  }
+  .pointer .ant-table-tbody > tr.ant-table-row:hover > td {
+    cursor: pointer;
+  }
+}
+
 @keyframes slide {
   0% {
     background-position: 0 0;
