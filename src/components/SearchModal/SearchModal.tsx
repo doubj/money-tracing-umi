@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Space, Modal, DatePicker, Checkbox, InputNumber, Button } from 'antd';
+import { Space, Modal, Checkbox, InputNumber, Button } from 'antd';
 import Draggable from 'react-draggable';
-import moment from 'moment';
 
 import { CategoryType } from '@/services/categories';
 import CategoryList from '../CategoryList/CategoryList';
+import { DatePicker } from '../AntdReset';
+import dayjs, { Dayjs } from 'dayjs';
 
 const checkBoxOptions = [
   { label: '支出', value: 'expense' },
@@ -50,8 +51,8 @@ const SearchModal: React.FC<SearchModalProps> = ({
     });
   };
 
-  const disabledDate = (current: moment.Moment) => {
-    return current > moment().endOf('day');
+  const disabledDate = (current: Dayjs) => {
+    return current > dayjs().endOf('day');
   };
 
   return (
@@ -106,8 +107,8 @@ const SearchModal: React.FC<SearchModalProps> = ({
       <Space style={{ width: '100%' }} direction="vertical" size={20}>
         <RangePicker
           value={[
-            search.date_$gte ? moment(search.date_$gte) : null,
-            search.date_$lt ? moment(search.date_$lt) : null,
+            search.date_$gte ? dayjs(search.date_$gte) : null,
+            search.date_$lt ? dayjs(search.date_$lt) : null,
           ]}
           disabledDate={disabledDate}
           style={{ width: '100%' }}
@@ -115,7 +116,7 @@ const SearchModal: React.FC<SearchModalProps> = ({
             setSearch({
               ...search,
               date_$gte: values[0].format('YYYY-MM-DD'),
-              date_$lt: moment(values[1]).add(1, 'days').format('YYYY-MM-DD'),
+              date_$lt: dayjs(values[1]).add(1, 'days').format('YYYY-MM-DD'),
             })
           }
         />

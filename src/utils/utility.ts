@@ -16,5 +16,5 @@ export const percentFormat = Intl.NumberFormat('zh-Hans-CN', {
 });
 
 export const IconFont = createFromIconfontCN({
-  scriptUrl: '//at.alicdn.com/t/font_2412634_r085zkxyq2.js',
+  scriptUrl: '//at.alicdn.com/t/font_2412634_k3eu3d3uop9.js',
 });

@@ -9,7 +9,6 @@ import {
   modifyTemplate,
   TemplateType,
 } from '@/services/template';
-import useCategory from '@/utils/use-category';
 import useMount from '@/utils/use-mount';
 import EditModal from '@/components/EditModal/EditModal';
 import { createRecord } from '@/services/transactions';
@@ -45,10 +44,12 @@ const Templates: React.FC = () => {
       _limit: pageSize,
       ...query.current,
     });
-    pagination.total = results.total;
-    setPagination(pagination);
-    setTemplates(results.list);
-    setIsLoading(false);
+    if (results) {
+      pagination.total = results.total;
+      setPagination(pagination);
+      setTemplates(results.list);
+      setIsLoading(false);
+    }
   };
 
   const handleGenerate = async (template: TemplateType) => {

@@ -1,5 +1,5 @@
 import { extend, ResponseError } from 'umi-request';
-import { message, notification } from 'antd';
+import { message } from 'antd';
 import { history } from 'umi';
 
 /**

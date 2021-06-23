@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import { getDescriptionList } from "api/record";
 import {
   Form,
   Radio,
@@ -83,12 +82,6 @@ const EditModal: React.FC<EditModalProps> = ({
   };
 
   const getAutoCompleteOptions = async (value: string) => {
-    const params = {
-      _limit: 20,
-      description_like: value,
-      cid: form.getFieldValue('cid'),
-    };
-    // const result = await getDescriptionList(params);
     setAutoCompleteOptions([]);
     autoCalculatePrice();
   };
