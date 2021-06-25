@@ -3,14 +3,14 @@ import { CategoryType } from './categories';
 import request from '@/utils/request';
 
 export type RecordType = {
-  id?: string;
-  date?: string | Dayjs | Date;
-  time?: Date | Dayjs;
-  type?: string;
-  timestamp?: number;
-  price?: number;
-  description?: string;
-  category?: CategoryType;
+  id: string;
+  date: string | Dayjs | Date;
+  time: Date | Dayjs;
+  type: string;
+  timestamp: number;
+  price: number;
+  description: string;
+  category: CategoryType;
 };
 
 interface QueryParams {

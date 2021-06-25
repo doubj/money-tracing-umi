@@ -11,15 +11,15 @@ export type QueryParams = {
 };
 
 export type TemplateType = {
-  id?: string;
-  type?: string;
-  date?: string | Dayjs | Date;
-  time?: Date | Dayjs;
-  timestamp?: number;
-  category?: CategoryType;
-  price?: number;
-  description?: string;
-  remark?: string;
+  id: string;
+  type: string;
+  date: string | Dayjs | Date;
+  time: Date | Dayjs;
+  timestamp: number;
+  category: CategoryType;
+  price: number;
+  description: string;
+  remark: string;
 };
 
 export async function getTemplates(params: QueryParams) {

@@ -39,6 +39,7 @@ const EditModal: React.FC<EditModalProps> = ({
   const [autoCompleteOptions, setAutoCompleteOptions] = useState<
     { description: string; id: string }[]
   >([]);
+  const [lastTimestamp, setLastTimestamp] = useState(new Date().getTime());
   const [form] = Form.useForm();
   const isEdit = formData.id;
   const title = isEdit ? '编辑' : '新增';
@@ -47,8 +48,8 @@ const EditModal: React.FC<EditModalProps> = ({
   useEffect(() => {
     if (!isEdit) {
       formData.type = selectedType;
-      formData.date = dayjs();
-      formData.time = dayjs();
+      formData.date = dayjs(+lastTimestamp);
+      formData.time = dayjs(+lastTimestamp);
       const categoryList = categories.filter((c) => c.type === selectedType);
       formData.category = categoryList.length > 0 ? categoryList[0] : {};
     } else {
@@ -96,6 +97,9 @@ const EditModal: React.FC<EditModalProps> = ({
         cancelText="取消"
         onOk={() => {
           form.validateFields().then((values) => {
+            if (!isEdit) {
+              setLastTimestamp(values.date.valueOf());
+            }
             onCreate(values);
           });
         }}
