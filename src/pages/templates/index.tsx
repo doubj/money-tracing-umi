@@ -28,7 +28,7 @@ const Templates: React.FC = () => {
   });
   const [templates, setTemplates] = useState<TemplateType[]>([]);
   const [editVisible, setEditVisible] = useState(false);
-  const [editTemplate, setEditTemplate] = useState<TemplateType>({});
+  const [editTemplate, setEditTemplate] = useState<TemplateType | {}>({});
 
   const query = useRef<{ [key: string]: unknown }>({});
 
@@ -104,7 +104,7 @@ const Templates: React.FC = () => {
         />
         <EditModal
           showRemark={true}
-          formData={editTemplate}
+          formData={editTemplate as TemplateType}
           visible={editVisible}
           onCreate={(values: any) => {
             if (!values.id) {

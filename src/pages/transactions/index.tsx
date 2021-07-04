@@ -15,6 +15,7 @@ import { RecordType } from '@/services/transactions';
 import { Dayjs } from 'dayjs';
 import useCategory from '@/utils/use-category';
 import SearchModal from '@/components/SearchModal/SearchModal';
+import { createTemplate } from '@/services/template';
 
 const Transactions: React.FC = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
@@ -117,8 +118,9 @@ const Transactions: React.FC = () => {
       ...record,
       id: undefined,
       timestamp: new Date().getTime(),
+      remark: '',
     };
-    // await createTemplate(template);
+    await createTemplate(template);
     message.success('生成模板成功！');
     setIsLoading(false);
   };

@@ -11,7 +11,7 @@ export type QueryParams = {
 };
 
 export type TemplateType = {
-  id: string;
+  id?: string;
   type: string;
   date: string | Dayjs | Date;
   time: Date | Dayjs;

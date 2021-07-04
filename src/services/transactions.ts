@@ -3,7 +3,7 @@ import { CategoryType } from './categories';
 import request from '@/utils/request';
 
 export type RecordType = {
-  id: string;
+  id?: string;
   date: string | Dayjs | Date;
   time: Date | Dayjs;
   type: string;
