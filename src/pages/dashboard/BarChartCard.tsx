@@ -1,4 +1,4 @@
-import EmptyDataInfo from '@/components/EmptyDataInfo/EmptyDataInfo';
+import PageLoading from '@/components/PageLoading';
 import { RecordType } from '@/services/transactions';
 import { currencyFormat } from '@/utils/utility';
 import React, { useEffect } from 'react';
@@ -8,10 +8,11 @@ import styles from './index.less';
 interface BarChartCardProps {
   records: RecordType[];
   title: string;
+  loading: boolean;
 }
 
 const BarChartCard: React.FC<BarChartCardProps> = (props) => {
-  const { records, title } = props;
+  const { records, title, loading } = props;
   const option = {
     legend: {},
     tooltip: {
@@ -101,13 +102,13 @@ const BarChartCard: React.FC<BarChartCardProps> = (props) => {
     <>
       <div className={styles.barChartContainer}>
         <div>{title}</div>
-        {records.length > 0 ? (
+        {loading ? (
+          <PageLoading />
+        ) : (
           <div
             style={{ width: '90%', height: '100%', marginLeft: '5%' }}
             id="barChart"
           ></div>
-        ) : (
-          <EmptyDataInfo title={'交易列表为空，快去记录一条交易吧！'} />
         )}
       </div>
     </>

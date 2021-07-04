@@ -24,8 +24,7 @@
 - [ ] 操作交易记录数后实时更新wallet的值 8
 - [ ] 将查询条件记录在url中 7
 - [ ] 标题跟随内容页变化 10
-- [ ] 图表页loading效果 10
-- [ ] 将request的errorHandle修改为拦截器
+- [x] 图表页loading效果 10
 
 ## 3. bug
 

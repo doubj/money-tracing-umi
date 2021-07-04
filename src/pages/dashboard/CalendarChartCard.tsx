@@ -6,12 +6,14 @@ import { RecordType } from '@/services/transactions';
 import { CategoryType } from '@/services/categories';
 import dayjs from 'dayjs';
 import styles from './index.less';
+import PageLoading from '@/components/PageLoading';
 
 interface CalendarChartCardProps {
   records: RecordType[];
   categories: CategoryType[];
   dateRange: [dayjs.Dayjs, dayjs.Dayjs];
   onClick: (params: any) => void;
+  loading: boolean;
 }
 
 const cellSize = [80, 80];
@@ -19,7 +21,7 @@ const pieRadius = 30;
 const dateFormatter = 'YYYY/MM/DD';
 
 const CalendarChartCard: React.FC<CalendarChartCardProps> = (props) => {
-  const { records, categories, onClick, dateRange } = props;
+  const { records, categories, onClick, dateRange, loading } = props;
   const dateRangeStr = [
     dateRange[0].format(dateFormatter),
     dateRange[1].format(dateFormatter),
@@ -230,13 +232,13 @@ const CalendarChartCard: React.FC<CalendarChartCardProps> = (props) => {
         <div style={{ marginTop: '5px', color: '#9d9d9d', fontSize: '13px' }}>
           {`${dateRangeStr[0]} - ${dateRangeStr[1]}`}
         </div>
-        {records.length > 0 ? (
+        {loading ? (
+          <PageLoading />
+        ) : (
           <div
             style={{ width: '100%', height: '90%' }}
             id="calendarChart"
           ></div>
-        ) : (
-          <EmptyDataInfo title={'还没有任何一项支出哦！快去添加一项支出吧！'} />
         )}
       </div>
     </>

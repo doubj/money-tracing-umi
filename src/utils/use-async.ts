@@ -30,10 +30,15 @@ const useAsync = <T>(initState?: State<T>) => {
       throw new Error('请传入正确的Promise参数');
     }
     setState({ ...state, status: 'loading' });
-    return promise.then((data) => {
-      setData(data);
-      return data;
-    });
+    return promise
+      .then((data) => {
+        setData(data);
+        return data;
+      })
+      .catch((e) => {
+        setError(e);
+        return e;
+      });
   };
 
   return {

@@ -6,6 +6,7 @@ import { RecordType } from '@/services/transactions';
 import { CategoryType } from '@/services/categories';
 import dayjs from 'dayjs';
 import styles from './index.less';
+import PageLoading from '@/components/PageLoading';
 
 function getTotal(datas: { name: string; value: number }[]) {
   let sum = 0;
@@ -35,10 +36,11 @@ interface PieChartCardProps {
   categories: CategoryType[];
   dateRange: [dayjs.Dayjs, dayjs.Dayjs];
   onClick: (params: any) => void;
+  loading: boolean;
 }
 
 const PieChartCard: React.FC<PieChartCardProps> = (props) => {
-  const { records, categories, dateRange, onClick } = props;
+  const { records, categories, dateRange, onClick, loading } = props;
   const option = {
     tooltip: {
       trigger: 'item',
@@ -156,13 +158,13 @@ const PieChartCard: React.FC<PieChartCardProps> = (props) => {
             dateFormatter,
           )}`}
         </div>
-        {records.length > 0 ? (
+        {loading ? (
+          <PageLoading />
+        ) : (
           <div
             style={{ width: '80%', height: '90%', marginLeft: '10%' }}
             id="pieChart"
           ></div>
-        ) : (
-          <EmptyDataInfo title={'还没有任何一项支出哦！快去添加一项支出吧！'} />
         )}
       </div>
     </>

@@ -11,6 +11,7 @@ import useMount from '@/utils/use-mount';
 import RecordListModal from '@/components/RecordListModal/RecordListModal';
 import useCategory from '@/utils/use-category';
 import styles from './index.less';
+import useAsync from '@/utils/use-async';
 
 const { RangePicker } = DatePicker;
 
@@ -24,6 +25,7 @@ const Dashboard: React.FC = () => {
   const [listVisible, setListVisible] = useState(false);
   const [listRecords, setListRecords] = useState<RecordType[]>([]);
   const [listTitle, setListTitle] = useState('');
+  const { run, isLoading } = useAsync<{ list: RecordType[] }>();
 
   const initData = async (date = dateRange) => {
     const dateFormatter = 'YYYY-MM-DD';
@@ -31,8 +33,12 @@ const Dashboard: React.FC = () => {
     const dateMax = dayjs(date[1].valueOf())
       .add(1, 'days')
       .format(dateFormatter);
-    const result = await getRecords({ date_$gte: dateMin, date_$lt: dateMax });
-    setRecords(result.list);
+    const result = await run(
+      getRecords({ date_$gte: dateMin, date_$lt: dateMax }),
+    );
+    if (result) {
+      setRecords(result.list);
+    }
   };
 
   useMount(() => {
@@ -95,6 +101,7 @@ const Dashboard: React.FC = () => {
       />
       <NumberCards records={records} />
       <PieChartCard
+        loading={isLoading}
         onClick={showRecordsByCategoryName}
         dateRange={dateRange}
         records={records}
@@ -102,6 +109,7 @@ const Dashboard: React.FC = () => {
       />
       {dateRange[1].diff(dateRange[0], 'day') > 28 && (
         <CalendarChartCard
+          loading={isLoading}
           onClick={showRecordsByDate}
           dateRange={dateRange}
           records={records}
@@ -109,8 +117,8 @@ const Dashboard: React.FC = () => {
         />
       )}
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <LineChartCard title={'月结余'} records={records} />
-        <BarChartCard title={'收支比'} records={records} />
+        <LineChartCard loading={isLoading} title={'月结余'} records={records} />
+        <BarChartCard loading={isLoading} title={'收支比'} records={records} />
       </div>
       <RecordListModal
         visible={listVisible}
