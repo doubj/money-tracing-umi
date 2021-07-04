@@ -57,6 +57,7 @@ const SearchModal: React.FC<SearchModalProps> = ({
 
   return (
     <Modal
+      wrapClassName="searchModal"
       title={
         <div
           style={{ width: '100%', cursor: 'move' }}

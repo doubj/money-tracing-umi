@@ -1,8 +1,8 @@
 import { CategoryType } from '@/services/categories';
 import { RecordType } from '@/services/transactions';
 import { currencyFormat, IconFont } from '@/utils/utility';
-import { Modal, Space, Table } from 'antd';
-import React from 'react';
+import { Modal, PaginationProps, Space, Table } from 'antd';
+import React, { useEffect, useState } from 'react';
 
 const { Column } = Table;
 
@@ -15,6 +15,33 @@ interface RecordListModalProps {
 
 const RecordListModal: React.FC<RecordListModalProps> = (props) => {
   const { visible, title, datas, onCancel } = props;
+  const [pagination, setPagination] = useState<PaginationProps>({
+    current: 1,
+    pageSize: 5,
+    total: 0,
+  });
+
+  useEffect(() => {
+    getRecords();
+  }, [datas]);
+
+  const [records, setRecords] = useState<RecordType[]>([]);
+
+  const getRecords = () => {
+    let { current = 1, pageSize = 5 } = pagination;
+    setRecords(datas.slice((current - 1) * pageSize, current * pageSize));
+    // onChange必须要定义在这里才能获取到datas?
+    setPagination({
+      ...pagination,
+      total: datas.length,
+      onChange: (page: number, pageSize: number | undefined) => {
+        pagination.current = page;
+        pagination.pageSize = pageSize;
+        getRecords();
+      },
+    });
+  };
+
   return (
     <>
       <Modal
@@ -24,9 +51,12 @@ const RecordListModal: React.FC<RecordListModalProps> = (props) => {
         visible={visible}
         title={title}
         maskClosable={true}
-        onCancel={onCancel}
+        onCancel={() => {
+          setPagination({ pageSize: 5, current: 1 });
+          onCancel();
+        }}
       >
-        <Table rowKey="id" pagination={{ pageSize: 5 }} dataSource={datas}>
+        <Table rowKey="id" pagination={pagination} dataSource={records}>
           <Column
             align="center"
             title="类别"

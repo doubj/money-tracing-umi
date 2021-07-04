@@ -19,6 +19,13 @@
   font-weight: bold;
 }
 
+/* searchModal能够点击外层 */
+.searchModal {
+  &.ant-modal-wrap {
+    pointer-events: none;
+  }
+}
+
 .income {
   color: #04cd93;
   font-weight: bold;

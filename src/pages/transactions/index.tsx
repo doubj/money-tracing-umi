@@ -20,7 +20,7 @@ const Transactions: React.FC = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [searchVisible, setSearchVisible] = useState(false);
   const [editVisible, setEditVisible] = useState(false);
-  const [editRecord, setEditRecord] = useState<RecordType>({});
+  const [editRecord, setEditRecord] = useState<RecordType | {}>({});
   const [pagination, setPagination] = useState<PaginationProps>({
     current: 1,
     pageSize: 10,
@@ -40,16 +40,17 @@ const Transactions: React.FC = () => {
     getExpenseList();
   });
 
-  const getExpenseList = async () => {
+  const getExpenseList = async (page?: number) => {
     setIsLoading(true);
     const { current, pageSize } = pagination;
     const results = await getRecords({
-      _page: current,
+      _page: page || current,
       _limit: pageSize,
       ...query.current,
     });
     if (results) {
       pagination.total = results.total;
+      pagination.current = page || current;
       setPagination(pagination);
       setRecords(results.list);
       setIsLoading(false);
@@ -69,7 +70,7 @@ const Transactions: React.FC = () => {
 
   const handleSearch = (search: any) => {
     query.current = { ...search };
-    getExpenseList();
+    getExpenseList(1);
   };
 
   const openEditModalByCreate = () => {
@@ -162,7 +163,7 @@ const Transactions: React.FC = () => {
         />
         <EditModal
           showRemark={false}
-          formData={editRecord}
+          formData={editRecord as RecordType}
           visible={editVisible}
           onCreate={(values: any) => {
             if (!values.id) {

@@ -51,13 +51,13 @@ const EditModal: React.FC<EditModalProps> = ({
       formData.date = dayjs(+lastTimestamp);
       formData.time = dayjs(+lastTimestamp);
       const categoryList = categories.filter((c) => c.type === selectedType);
-      formData.category = categoryList.length > 0 ? categoryList[0] : {};
+      if (categoryList.length > 0) formData.category = categoryList[0];
     } else {
       formData.date = dayjs(formData.timestamp);
       formData.time = dayjs(formData.timestamp);
-      formData.type = categories.find(
-        (c) => c.id === formData.category?.id,
-      )?.type;
+      formData.type =
+        categories.find((c) => c.id === formData.category.id)?.type ||
+        'expense';
     }
     if (form) {
       form.resetFields();
