@@ -27,6 +27,7 @@
     "dayjs": "^1.10.5",
     "echarts": "^5.1.2",
     "react-draggable": "^4.4.3",
+    "react-helmet-async": "^1.0.9",
     "umi": "^3.4.25"
   },
   "devDependencies": {

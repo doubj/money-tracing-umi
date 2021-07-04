@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Menu, Divider, ConfigProvider, Avatar, Button, Layout } from 'antd';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import {
   DashboardOutlined,
   DollarCircleOutlined,
@@ -74,7 +75,10 @@ const BaseLayout: React.FC = (props: any) => {
     RouteMap[(location && location.pathname.substr(1)) || 'dashboard'];
 
   return (
-    <>
+    <HelmetProvider>
+      <Helmet>
+        <title>{`Money Tracing - ${curRoute.name}`}</title>
+      </Helmet>
       <ConfigProvider locale={zhCN}>
         <section className={styles.layoutContainer}>
           <aside className={styles.layoutSider}>
@@ -120,7 +124,7 @@ const BaseLayout: React.FC = (props: any) => {
           </Layout>
         </section>
       </ConfigProvider>
-    </>
+    </HelmetProvider>
   );
 };
 
