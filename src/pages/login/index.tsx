@@ -9,6 +9,8 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 const Login: React.FC = () => {
   const [form] = Form.useForm();
 
+  const showProfile = true;
+
   const { run, isLoading } = useAsync<{ token: string }>();
 
   const handleLogin = () => {
@@ -55,6 +57,13 @@ const Login: React.FC = () => {
             <Button loading={isLoading} onClick={handleLogin}>
               登录
             </Button>
+            {showProfile && (
+              <span
+                style={{ marginTop: 10, color: '#7f8c8d', fontWeight: 'bold' }}
+              >
+                测试账户: admin admin123
+              </span>
+            )}
           </div>
         </Card>
       </div>
