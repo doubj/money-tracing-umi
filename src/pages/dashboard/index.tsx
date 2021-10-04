@@ -12,6 +12,7 @@ import RecordListModal from '@/components/RecordListModal/RecordListModal';
 import useCategory from '@/utils/use-category';
 import styles from './index.less';
 import useAsync from '@/utils/use-async';
+import DailyExpenseChartCard from './DailyExpenseChartCard';
 
 const { RangePicker } = DatePicker;
 
@@ -63,12 +64,23 @@ const Dashboard: React.FC = () => {
             record.date === data[0] && record.category.type === 'expense',
         ),
       );
-    } else {
+    }
+    if (componentSubType === 'pie') {
       const { name, date } = data;
       setListTitle(`${name}(${date})`);
       setListRecords(
         records.filter(
           (record) => record.date === date && record.category.name === name,
+        ),
+      );
+    }
+    if (componentSubType === 'line') {
+      const { name: date } = params;
+      setListTitle(`${date}日总支出`);
+      setListRecords(
+        records.filter(
+          (record) =>
+            record.date === date && record.category.type === 'expense',
         ),
       );
     }
@@ -100,6 +112,12 @@ const Dashboard: React.FC = () => {
         }}
       />
       <NumberCards records={records} />
+      <DailyExpenseChartCard
+        loading={isLoading}
+        records={records}
+        dateRange={dateRange}
+        onClick={showRecordsByDate}
+      />
       <PieChartCard
         loading={isLoading}
         onClick={showRecordsByCategoryName}

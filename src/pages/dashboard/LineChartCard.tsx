@@ -1,4 +1,3 @@
-import EmptyDataInfo from '@/components/EmptyDataInfo/EmptyDataInfo';
 import PageLoading from '@/components/PageLoading';
 import { RecordType } from '@/services/transactions';
 import { currencyFormat } from '@/utils/utility';
