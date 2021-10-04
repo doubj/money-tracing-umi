@@ -18,8 +18,8 @@ export default defineConfig({
   ],
   proxy: {
     '/api': {
-      // target: 'http://42.192.49.233:3010/api/',
-      target: 'http://localhost:3005/api/',
+      target: 'http://42.192.49.233:3010/api/',
+      // target: 'http://localhost:3005/api/',
       changeOrigin: true,
       pathRewrite: { '^/api': '' },
     },

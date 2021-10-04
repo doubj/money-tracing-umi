@@ -175,6 +175,7 @@ const Transactions: React.FC = () => {
             }
           }}
           onCancel={() => setEditVisible(false)}
+          showTemplateChoose={true}
         />
       </div>
     </React.Fragment>

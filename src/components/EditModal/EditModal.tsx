@@ -8,6 +8,7 @@ import {
   Input,
   InputNumber,
   AutoComplete,
+  Button,
 } from 'antd';
 import { DatePicker } from '@/components/AntdReset';
 import { TemplateType } from '@/services/template';
@@ -15,6 +16,7 @@ import { RecordType } from '@/services/transactions';
 import useCategory from '@/utils/use-category';
 import CategoryList from '../CategoryList/CategoryList';
 import dayjs from 'dayjs';
+import TemplateChooseModal from './TemplateChooseModal';
 
 const { Option } = AutoComplete;
 
@@ -24,6 +26,7 @@ interface EditModalProps {
   onCreate: (values: RecordType | TemplateType) => void;
   onCancel: () => void;
   showRemark: boolean;
+  showTemplateChoose: boolean;
 }
 
 // Record与Template共用该组件用来编辑与新增，
@@ -33,12 +36,16 @@ const EditModal: React.FC<EditModalProps> = ({
   onCreate,
   onCancel,
   showRemark,
+  showTemplateChoose,
 }) => {
   const { options, categories } = useCategory();
   const [selectedType, setSelectedType] = useState(options[0].value);
   const [autoCompleteOptions, setAutoCompleteOptions] = useState<
     { description: string; id: string }[]
   >([]);
+  const [templateChooseModalVisible, setTemplateChooseModalVisible] = useState(
+    false,
+  );
   const [lastTimestamp, setLastTimestamp] = useState(new Date().getTime());
   const [form] = Form.useForm();
   const isEdit = formData.id;
@@ -87,10 +94,20 @@ const EditModal: React.FC<EditModalProps> = ({
     autoCalculatePrice();
   };
 
+  const showTemplateChooseModal = () => setTemplateChooseModalVisible(true);
+
+  const handleTemplateChoose = (template: TemplateType) => {
+    const { id, remark, timestamp, ...rest } = template;
+    form.setFieldsValue({ ...rest });
+    setTemplateChooseModalVisible(false);
+  };
+
   return (
     <>
       <Modal
+        forceRender
         width={800}
+        bodyStyle={{ paddingBottom: 12 }}
         title={title}
         visible={visible}
         okText={okText}
@@ -205,7 +222,21 @@ const EditModal: React.FC<EditModalProps> = ({
             )}
           </Row>
         </Form>
+        {showTemplateChoose && (
+          <div style={{ width: '100%', textAlign: 'right' }}>
+            <Button type="link" onClick={showTemplateChooseModal}>
+              选择模板
+            </Button>
+          </div>
+        )}
       </Modal>
+      {showTemplateChoose && (
+        <TemplateChooseModal
+          visible={templateChooseModalVisible}
+          onCancel={() => setTemplateChooseModalVisible(false)}
+          onChoose={handleTemplateChoose}
+        />
+      )}
     </>
   );
 };
