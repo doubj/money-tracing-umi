@@ -2,6 +2,8 @@ import { extend, ResponseError } from 'umi-request';
 import { message } from 'antd';
 import { history } from 'umi';
 
+export const BASE_URL = 'http://42.192.49.233:3010';
+
 /**
  * @zh-CN 异常处理程序
  * @en-US Exception handler
@@ -25,12 +27,13 @@ const errorHandler = (error: ResponseError): void => {
  * @zh-CN 配置request请求时的默认参数
  */
 const request = extend({
+  prefix: BASE_URL,
   headers: {
     Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
   },
   timeout: 3000,
   errorHandler, // default error handling
-  credentials: 'include', // Does the default request bring cookies
+  // credentials: 'include', // Does the default request bring cookies
 });
 
 // request拦截器, 给请求头加上token
