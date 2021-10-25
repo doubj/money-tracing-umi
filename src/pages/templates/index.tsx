@@ -114,6 +114,7 @@ const Templates: React.FC = () => {
             }
           }}
           onCancel={() => setEditVisible(false)}
+          showTemplateChoose={false}
         />
         <TemplateTable
           isLoading={isLoading}

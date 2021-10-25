@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import echarts from './echartsService';
-import EmptyDataInfo from '@/components/EmptyDataInfo/EmptyDataInfo';
 import { currencyFormat, percentFormat } from '@/utils/utility';
 import { RecordType } from '@/services/transactions';
 import { CategoryType } from '@/services/categories';
